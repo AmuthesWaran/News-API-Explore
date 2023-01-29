@@ -10,6 +10,7 @@ import CachedIcon from '@mui/icons-material/Cached';
 import axios from 'axios';
 import DisplayCard from './DisplayCard';
 import { Col, Row } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 
 const Dashboard = () => {
 
@@ -44,9 +45,19 @@ const Dashboard = () => {
     const LoadNews = () => {
 
         var url = `https://newsapi.org/v2/top-headlines?${country}${category}${searchText}apiKey=dbaefe94344341b6b68c526c4070fe6f`
-        console.log(url);
+        // console.log(url);
         axios.get(url)
-            .then(response => setNews(response.data.articles))
+            .then(response => {
+                console.log(response.data.articles);
+                for (let i = 0; i < response.data.articles.length; i++) {
+                    console.log(response.data.articles[i]);
+                    response.data.articles[i]['id'] = uuidv4()
+                    console.log(response.data.articles)
+                }
+                console.log('hey')
+                setNews(response.data.articles)
+                console.log(news)
+            })
             .catch(error => console.log(error))
 
 
@@ -54,7 +65,7 @@ const Dashboard = () => {
     // console.log(news[0].source.name);
 
     return (
-        
+
         <Container fluid >
             <Navbar bg="light" expand="lg">
                 <Container fluid >
@@ -104,23 +115,21 @@ const Dashboard = () => {
             </Button>
             <Container fluid>
                 <Row>
-                    {/* // container
-                    // direction="row"
-                    // justifyContent="center"
-                    // alignItems="center"    */}
-                
 
-                    {news.map((news) => (
-                        <Col style={{ margin: '10px' }}>
-                        <DisplayCard
-                            key={news.url}
-                            author={news.source.name}
-                            title={news.title}
-                            url={news.url}
-                            urlToImage={news.urlToImage}
-                            description={news.description}
-                            date={news.publishedAt}
-                        />
+                    {news.map((news, i) => (
+                        <Col style={{ margin: '10px' }} key={i} >
+                            <DisplayCard
+                                key={news.id}
+                                id={news.id}
+                                author={news.source.name}
+                                title={news.title}
+                                url={news.url}
+                                urlToImage={news.urlToImage}
+                                description={news.description}
+                                date={news.publishedAt}
+                            // id={news.url}
+
+                            />
                         </Col>
 
 
