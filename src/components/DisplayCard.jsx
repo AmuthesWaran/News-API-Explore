@@ -8,15 +8,30 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Row } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
+
 const DisplayCard = (p) => {
 
     // console.log(p);   
     // const [clicked, setClicked] = useState(false)
     // console.log(clicked);
-    const favFn = (e) => {
-        console.log(Object.values(e.target.id));
+    // const favFn = (e) => {
+    //     console.log(Object.values(e.target.id));
 
-    }
+    // }
+
+    const saveNews = () => {
+        const newCard = {
+            id: uuidv4(),
+            title: p.title,
+            author: p.author,
+            image: p.urlToImage,
+            description: p.description,
+            url: p.url,
+        }
+        p.readLater(newCard);
+    };
+
 
     return (
         <div>
@@ -42,20 +57,12 @@ const DisplayCard = (p) => {
                     </CardContent>
                     <CardActions disableSpacing>
                         {/* <Checkbox icon={<FavoriteBorder />} id={p.id} checkedIcon={<Favorite />} /> */}
-                        <Button onClick={favFn} id={
-                            {
-                                'id': p.id,
-                                'author': p.author,
-                                'title': p.title,
-                                'url': p.url,
-                                'urlToImage': p.urlToImage,
-                                'description': p.description,
-                                'date': p.publishedAt
-                            }
+                        <Button onClick={saveNews} id={p.id}
 
 
 
-                        } >Add to Fav</Button>
+
+                        >Add to Fav</Button>
                         <CardActions>
                             <Button size="small" href={p.url} target='_blank' >Read Now</Button>
                         </CardActions>

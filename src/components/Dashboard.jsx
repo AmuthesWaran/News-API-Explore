@@ -29,6 +29,7 @@ const Dashboard = () => {
     const [searchText, setSearchText] = useState(``)
     const [category, setCategory] = useState('')
     const [news, setNews] = useState([])
+    const [readlaterdb, setReadlaterdb] = useState([]);
 
     // console.log(searchText);
     // var date = "2022-09-30T11:49:49Z"
@@ -63,6 +64,21 @@ const Dashboard = () => {
 
     }
     // console.log(news[0].source.name);
+
+    const readLater = (newCard) => {
+        axios
+            .post('http://localhost:3001/readLater', newCard, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(function (response) {
+                if (response.status === 201) {
+                    setReadlaterdb([...readlaterdb, response.data]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
 
@@ -127,6 +143,7 @@ const Dashboard = () => {
                                 urlToImage={news.urlToImage}
                                 description={news.description}
                                 date={news.publishedAt}
+                                readLater={readLater}
                             // id={news.url}
 
                             />
