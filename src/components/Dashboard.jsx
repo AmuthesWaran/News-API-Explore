@@ -11,6 +11,8 @@ import axios from 'axios';
 import DisplayCard from './DisplayCard';
 import { Col, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { Switch, FormControlLabel } from '@mui/material';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
 
@@ -30,7 +32,22 @@ const Dashboard = () => {
     const [category, setCategory] = useState('')
     const [news, setNews] = useState([])
     const [readlaterdb, setReadlaterdb] = useState([]);
+    const [mode, setMode] = useState('black')
 
+    function switchMode(e) {
+        // console.log(e.target.checked)
+        if (!e.target.checked) {
+            setMode('white')
+        }
+        else {
+            setMode('black')
+        }
+    }
+
+    useEffect(() => {
+        // change background color with a random color
+        document.body.style.background = mode;
+    });
     // console.log(searchText);
     // var date = "2022-09-30T11:49:49Z"
     // date.search("T")
@@ -126,6 +143,20 @@ const Dashboard = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <FormControlLabel
+                value="start"
+                control={
+                    <Switch
+
+                        defaultChecked
+                        onChange={switchMode}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                    />
+                }
+                label="Dark Mode"
+                labelPlacement="start"
+            />
+            <br />
             <Button variant="outlined" startIcon={<CachedIcon />} onClick={LoadNews} >
                 Load
             </Button>
