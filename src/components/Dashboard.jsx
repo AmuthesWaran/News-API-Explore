@@ -66,15 +66,15 @@ const Dashboard = () => {
         // console.log(url);
         axios.get(url)
             .then(response => {
-                console.log(response.data.articles);
+                // console.log(response.data.articles);
                 for (let i = 0; i < response.data.articles.length; i++) {
-                    console.log(response.data.articles[i]);
+                    // console.log(response.data.articles[i]);
                     response.data.articles[i]['id'] = uuidv4()
-                    console.log(response.data.articles)
+                    // console.log(response.data.articles)
                 }
-                console.log('hey')
+                // console.log('hey')
                 setNews(response.data.articles)
-                console.log(news)
+                // console.log(news)
             })
             .catch(error => console.log(error))
 

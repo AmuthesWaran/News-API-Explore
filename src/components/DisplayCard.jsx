@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import NoImage from '../images/IfImageUrlIsNull.png'
 
 const DisplayCard = (p) => {
 
@@ -43,13 +44,11 @@ const DisplayCard = (p) => {
                         title={p.author}
                         subheader={p.publishedAt}
                     />
-                    <CardMedia
-                        component="img"
-                        height="194"
-                        width="90"
-                        image={p.urlToImage}
-                        alt={p.title}
-                    />
+                    {
+                        (p.urlToImage === null) ? <CardMedia component="img" height="194" width="90" image={NoImage} alt={p.title} /> : <CardMedia component="img" height="194" width="90" image={p.urlToImage} alt={p.title} />
+
+                    }
+
                     <CardContent>
                         <Typography className='module limitedtext' variant="body2" color="text.secondary">
                             {p.title}
