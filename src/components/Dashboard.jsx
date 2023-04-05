@@ -9,9 +9,9 @@ import Button from '@mui/material/Button';
 import CachedIcon from '@mui/icons-material/Cached';
 import axios from 'axios';
 import DisplayCard from './DisplayCard';
-import { Col, Dropdown, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import { Switch, FormControlLabel } from '@mui/material';
+import { Switch, FormControlLabel, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
@@ -33,6 +33,12 @@ const Dashboard = () => {
     const [news, setNews] = useState([])
     const [readlaterdb, setReadlaterdb] = useState([]);
     const [mode, setMode] = useState('black')
+    const [age, setAge] = useState('')
+    const categoryList = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology']
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
 
     function switchMode(e) {
         // console.log(e.target.checked)
@@ -127,17 +133,7 @@ const Dashboard = () => {
                                 <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" onChange={(e) => setSearchText("q=" + e.target.value + "&")} />
                                 <Button variant="contained" color="success" >Search</Button>
                             </Form>
-                            {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
-                                <NavDropdown.Item >Action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
 
-                            </NavDropdown> */}
                         </Nav>
 
                     </Navbar.Collapse>
@@ -157,20 +153,29 @@ const Dashboard = () => {
                 labelPlacement="start"
             />
             <br />
+            <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // id='${cat}'
+                    value={age}
+                    label="Age"
+                    onChange={handleChange}
+                >
+                    {categoryList.map(cat => {
+                        return <MenuItem value={cat}>{cat}</MenuItem>
+                    })}
+                </Select>
+
+
+            </FormControl>
+            <br />
             <Button variant="outlined" startIcon={<CachedIcon />} onClick={LoadNews} >
                 Load
             </Button>
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
-                </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
             <Container fluid>
                 <Row>
 
@@ -197,7 +202,7 @@ const Dashboard = () => {
 
                 </Row>
             </Container>
-        </Container>
+        </Container >
     )
 }
 
