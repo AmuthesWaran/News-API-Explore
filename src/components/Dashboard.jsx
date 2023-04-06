@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-// import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
-import Button from '@mui/material/Button';
-import CachedIcon from '@mui/icons-material/Cached';
+// import Button from '@mui/material/Button';
+// import CachedIcon from '@mui/icons-material/Cached';
 import axios from 'axios';
 import DisplayCard from './DisplayCard';
-import { Col, Dropdown, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { Switch, FormControlLabel } from '@mui/material';
 import { useEffect } from 'react';
@@ -33,6 +33,10 @@ const Dashboard = () => {
     const [news, setNews] = useState([])
     const [readlaterdb, setReadlaterdb] = useState([]);
     const [mode, setMode] = useState('black')
+    // const categoryList = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology']
+
+    const [variantColor, setVariantColor] = useState('outline-primary')
+
 
     function switchMode(e) {
         // console.log(e.target.checked)
@@ -82,6 +86,15 @@ const Dashboard = () => {
     }
     // console.log(news[0].source.name);
 
+    // function toTitleCase(str) {
+    //     return str.replace(
+    //         /\b\w+/g,
+    //         function (txt) {
+    //             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    //         }
+    //     );
+    // }
+
     const readLater = (newCard) => {
         axios
             .post('http://localhost:3001/readLater', newCard, {
@@ -96,6 +109,11 @@ const Dashboard = () => {
                 console.log(error);
             });
     }
+
+    // const filterNews = (e) => {
+    //     console.log(e)
+    //     // setVariantColor('primary')
+    // }
 
     return (
 
@@ -125,7 +143,7 @@ const Dashboard = () => {
                             <Nav.Link onClick={(e) => setCategory(``)} >Remove Category Filter</Nav.Link>
                             <Form className="d-flex">
                                 <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" onChange={(e) => setSearchText("q=" + e.target.value + "&")} />
-                                <Button variant="contained" color="success" >Search</Button>
+                                <Button variant="success" >Search</Button>
                             </Form>
                             {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
                                 <NavDropdown.Item >Action</NavDropdown.Item>
@@ -157,20 +175,82 @@ const Dashboard = () => {
                 labelPlacement="start"
             />
             <br />
-            <Button variant="outlined" startIcon={<CachedIcon />} onClick={LoadNews} >
+            {/* <Button variant="outline-primary" startIcon={<CachedIcon />} onClick={LoadNews} > */}
+            <Button variant="outline-primary" onClick={LoadNews} >
                 Load
             </Button>
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
-                </Dropdown.Toggle>
+            <br />
+            <br />
 
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+            {/* <Row>
+                <Col>
+                    <Form.Select aria-label="Default select example">
+                        {categoryList.map((list, i) => {
+
+
+                            return <option value={list} key={i} onChange={filterNews()} >{toTitleCase(list)}</option>
+                        })}
+                    </Form.Select>
+                </Col>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+
+
+            </Row> */}
+            <br />
+
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=business&`)
+                LoadNews()
+            }} >Business</Button>
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=entertainment&`)
+                setVariantColor('primary')
+                LoadNews()
+            }} >Entertainment</Button>
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=general&`)
+                setVariantColor('primary')
+                LoadNews()
+            }} >General</Button>
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=health&`)
+                setVariantColor('primary')
+                LoadNews()
+            }} >Health</Button>
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=science&`)
+                setVariantColor('primary')
+                LoadNews()
+            }} >Science</Button>
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=sports&`)
+                setVariantColor('primary')
+                LoadNews()
+            }}>Sports</Button>
+            <Button variant={variantColor} onClick={() => {
+                setCategory(`category=technology&`)
+                setVariantColor('primary')
+                LoadNews()
+            }}>Technology</Button>
+
+
+
+
+
+
+
+
             <Container fluid>
                 <Row>
 
