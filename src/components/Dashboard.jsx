@@ -20,9 +20,6 @@ const Dashboard = () => {
     // https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=dbaefe94344341b6b68c526c4070fe6f
     // https://newsapi.org/v2/top-headlines?country=in&apiKey=dbaefe94344341b6b68c526c4070fe6f
 
-    // https://newsapi.org/v2/top-headlines?q=trump&apiKey=dbaefe94344341b6b68c526c4070fe6f
-
-
     //https://newsapi.org/v2/top-headlines/sources?category=business&apiKey=dbaefe94344341b6b68c526c4070fe6f
 
     // https://newsapi.org/v2/top-headlines?${country}${category}apiKey=dbaefe94344341b6b68c526c4070fe6f
@@ -35,7 +32,14 @@ const Dashboard = () => {
     const [mode, setMode] = useState('black')
     // const categoryList = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology']
 
-    const [variantColor, setVariantColor] = useState('outline-primary')
+    const [variantColorBus, setVariantColorBus] = useState('outline-primary')
+    const [variantColorEnt, setVariantColorEnt] = useState('outline-primary')
+    const [variantColorGen, setVariantColorGen] = useState('outline-primary')
+    const [variantColorHea, setVariantColorHea] = useState('outline-primary')
+    const [variantColorSci, setVariantColorSci] = useState('outline-primary')
+    const [variantColorSpo, setVariantColorSpo] = useState('outline-primary')
+    const [variantColorTec, setVariantColorTec] = useState('outline-primary')
+
 
 
     function switchMode(e) {
@@ -64,11 +68,19 @@ const Dashboard = () => {
     // console.log(category);
     // console.log(news);
 
-    const LoadNews = () => {
+    const LoadNews = async () => {
+
+        setVariantColorBus('outline-primary')
+        setVariantColorEnt('outline-primary')
+        setVariantColorGen('outline-primary')
+        setVariantColorHea('outline-primary')
+        setVariantColorSci('outline-primary')
+        setVariantColorSpo('outline-primary')
+        setVariantColorTec('outline-primary')
 
         var url = `https://newsapi.org/v2/top-headlines?${country}${category}${searchText}apiKey=dbaefe94344341b6b68c526c4070fe6f`
         // console.log(url);
-        axios.get(url)
+        await axios.get(url)
             .then(response => {
                 // console.log(response.data.articles);
                 for (let i = 0; i < response.data.articles.length; i++) {
@@ -145,17 +157,6 @@ const Dashboard = () => {
                                 <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" onChange={(e) => setSearchText("q=" + e.target.value + "&")} />
                                 <Button variant="success" >Search</Button>
                             </Form>
-                            {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
-                                <NavDropdown.Item >Action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-                                <NavDropdown.Item >Another action</NavDropdown.Item>
-
-                            </NavDropdown> */}
                         </Nav>
 
                     </Navbar.Collapse>
@@ -209,38 +210,81 @@ const Dashboard = () => {
             </Row> */}
             <br />
 
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorBus} onClick={() => {
                 setCategory(`category=business&`)
+                setVariantColorBus('primary')
+                setVariantColorEnt('outline-primary')
+                setVariantColorGen('outline-primary')
+                setVariantColorHea('outline-primary')
+                setVariantColorSci('outline-primary')
+                setVariantColorSpo('outline-primary')
+                setVariantColorTec('outline-primary')
                 LoadNews()
             }} >Business</Button>
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorEnt} onClick={() => {
                 setCategory(`category=entertainment&`)
-                setVariantColor('primary')
+                setVariantColorEnt('primary')
+                setVariantColorBus('outline-primary')
+                setVariantColorGen('outline-primary')
+                setVariantColorHea('outline-primary')
+                setVariantColorSci('outline-primary')
+                setVariantColorSpo('outline-primary')
+                setVariantColorTec('outline-primary')
                 LoadNews()
             }} >Entertainment</Button>
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorGen} onClick={() => {
                 setCategory(`category=general&`)
-                setVariantColor('primary')
+                setVariantColorGen('primary')
+                setVariantColorBus('outline-primary')
+                setVariantColorEnt('outline-primary')
+                setVariantColorHea('outline-primary')
+                setVariantColorSci('outline-primary')
+                setVariantColorSpo('outline-primary')
+                setVariantColorTec('outline-primary')
                 LoadNews()
             }} >General</Button>
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorHea} onClick={() => {
                 setCategory(`category=health&`)
-                setVariantColor('primary')
+                setVariantColorHea('primary')
+                setVariantColorBus('outline-primary')
+                setVariantColorEnt('outline-primary')
+                setVariantColorGen('outline-primary')
+                setVariantColorSci('outline-primary')
+                setVariantColorSpo('outline-primary')
+                setVariantColorTec('outline-primary')
                 LoadNews()
             }} >Health</Button>
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorSci} onClick={() => {
                 setCategory(`category=science&`)
-                setVariantColor('primary')
+                setVariantColorSci('primary')
+                setVariantColorBus('outline-primary')
+                setVariantColorEnt('outline-primary')
+                setVariantColorGen('outline-primary')
+                setVariantColorHea('outline-primary')
+                setVariantColorSpo('outline-primary')
+                setVariantColorTec('outline-primary')
                 LoadNews()
             }} >Science</Button>
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorSpo} onClick={() => {
                 setCategory(`category=sports&`)
-                setVariantColor('primary')
+                setVariantColorSpo('primary')
+                setVariantColorBus('outline-primary')
+                setVariantColorEnt('outline-primary')
+                setVariantColorGen('outline-primary')
+                setVariantColorHea('outline-primary')
+                setVariantColorSci('outline-primary')
+                setVariantColorTec('outline-primary')
                 LoadNews()
             }}>Sports</Button>
-            <Button variant={variantColor} onClick={() => {
+            <Button variant={variantColorTec} onClick={() => {
                 setCategory(`category=technology&`)
-                setVariantColor('primary')
+                setVariantColorTec('primary')
+                setVariantColorBus('outline-primary')
+                setVariantColorEnt('outline-primary')
+                setVariantColorGen('outline-primary')
+                setVariantColorHea('outline-primary')
+                setVariantColorSci('outline-primary')
+                setVariantColorSpo('outline-primary')
                 LoadNews()
             }}>Technology</Button>
 
