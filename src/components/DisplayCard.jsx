@@ -39,11 +39,10 @@ const DisplayCard = (p) => {
             <Row>
                 <Card sx={{ maxWidth: 345 }}>
                     <CardHeader
-
-
                         title={p.author}
                         subheader={p.publishedAt}
                     />
+                    {/* to render default image if image is not present  */}
                     {
                         (p.urlToImage === null) ? <CardMedia component="img" height="194" width="90" image={NoImage} alt={p.title} /> : <CardMedia component="img" height="194" width="90" image={p.urlToImage} alt={p.title} />
 
@@ -57,16 +56,10 @@ const DisplayCard = (p) => {
                     <CardActions disableSpacing>
                         {/* <Checkbox icon={<FavoriteBorder />} id={p.id} checkedIcon={<Favorite />} /> */}
                         <Button onClick={saveNews} id={p.id}
-
-
-
-
                         >Add to Fav</Button>
                         <CardActions>
                             <Button size="small" href={p.url} target='_blank' >Read Now</Button>
                         </CardActions>
-
-
                     </CardActions>
                 </Card>
             </Row>
